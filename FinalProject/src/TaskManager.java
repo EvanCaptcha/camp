@@ -11,37 +11,20 @@ import java.util.Timer;
 
 public class TaskManager
 {
+    public static int hour;
+    public static int mins;
+    public static int second;
     public static int hr;
     public static int min;
     public static int sec;
     public static Task task = new Task();
-    public static Timer timer = new Timer();
-    public static TimerTask tt = new TimerTask() {
-        @Override
-        public void run() {
-            Calendar cal = Calendar.getInstance();
-            int hour = cal.get(Calendar.HOUR_OF_DAY);
-            int mins = cal.get(Calendar.MINUTE);
-            int second = cal.get(Calendar.SECOND);
-            if (hour == hr && mins == min && second == sec) {
-                try {
-                    Notification.sendNotification(task.taskName, task.taskDesc, TrayIcon.MessageType.NONE);
-                }
-                catch(MalformedURLException e) {
-                    e.printStackTrace();
 
-                }
-                catch(AWTException e) {
-                    e.printStackTrace();
-                }
 
-            }
-        }
-
-    };
     String blank;
     public static void main(String[] args) {
         LinkedList<Task> tasks = new LinkedList<Task>();
+        Calendar cal = Calendar.getInstance();
+
 
         System.out.println("Hello! Welcome to Evan's time manager. Would you like to create a new task?\n" +
                 "1. Yes\n" +
@@ -77,9 +60,36 @@ public class TaskManager
                     task.print();
                 }
             }
+            Timer timer = new Timer();
+            TimerTask tt = new TimerTask() {
+
+                @Override
+                public void run() {
+                    if (hour == hr && mins == min && second == sec) {
+                        try {
+                            Notification.sendNotification(task.taskName, task.taskDesc, TrayIcon.MessageType.NONE);
+                        }
+                        catch(MalformedURLException e) {
+                            e.printStackTrace();
+
+                        }
+                        catch(AWTException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+
+            };
             if (userResponse ==  2) {
                 System.out.println("Your tasks will now run based on the scheduled time.");
-                timer.schedule(tt, 500);
+                timer.schedule(tt, 1000000);
+                try{Thread.sleep(500);}catch(InterruptedException e){System.out.println(e);}
+                int hour = cal.get(Calendar.HOUR_OF_DAY);
+                int mins = cal.get(Calendar.MINUTE);
+                int second = cal.get(Calendar.SECOND);
+                System.out.println(hour + ":" + mins + ":" + second);
+
 
             }
         }

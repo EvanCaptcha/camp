@@ -1,4 +1,4 @@
-import doryan.windowsnotificationapi.fr.Notification;
+/*import doryan.windowsnotificationapi.fr.Notification;
 
 import java.awt.*;
 import java.net.MalformedURLException;
@@ -25,9 +25,9 @@ public class Timer extends TaskManager {
                 }
 
             }
-            timer.schedule(tt, 100);
         }
 
     };
 }
+*/
 
