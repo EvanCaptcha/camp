@@ -25,7 +25,6 @@ public class TaskManager
         LinkedList<Task> tasks = new LinkedList<Task>();
         Calendar cal = Calendar.getInstance();
 
-
         System.out.println("Hello! Welcome to Evan's time manager. Would you like to create a new task?\n" +
                 "1. Yes\n" +
                 "2. No\n" +
@@ -33,6 +32,11 @@ public class TaskManager
         Scanner userInput = new Scanner(System.in);
         int userResponse = userInput.nextInt();
         while (userResponse != 3) {
+
+            hour = cal.get(Calendar.HOUR_OF_DAY);
+            mins = cal.get(Calendar.MINUTE);
+            second = cal.get(Calendar.SECOND);
+            System.out.println(hour + ":" + mins + ":" + second);
 
             if(userResponse == 1) {
                 System.out.println("You have chosen to add a new task.\n" +
@@ -65,7 +69,7 @@ public class TaskManager
 
                 @Override
                 public void run() {
-                    if (hour == hr && mins == min && second == sec) {
+                    if (hour >= hr && mins >= min && second >= sec) {
                         try {
                             Notification.sendNotification(task.taskName, task.taskDesc, TrayIcon.MessageType.NONE);
                         }
@@ -83,12 +87,11 @@ public class TaskManager
             };
             if (userResponse ==  2) {
                 System.out.println("Your tasks will now run based on the scheduled time.");
-                timer.schedule(tt, 1000000);
+                timer.schedule(tt, 1000);
                 try{Thread.sleep(500);}catch(InterruptedException e){System.out.println(e);}
-                int hour = cal.get(Calendar.HOUR_OF_DAY);
-                int mins = cal.get(Calendar.MINUTE);
-                int second = cal.get(Calendar.SECOND);
+
                 System.out.println(hour + ":" + mins + ":" + second);
+                System.out.println(hr & min & sec);
 
 
             }

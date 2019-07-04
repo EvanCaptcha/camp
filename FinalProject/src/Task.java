@@ -1,7 +1,8 @@
-public class Task {
+public class Task extends TaskManager {
 
     public Task(String name, String desc) {
 
+        this();
         this.taskName = name;
         this.taskDesc = desc;
 
@@ -10,6 +11,9 @@ public class Task {
 
         this.taskName = "Error!";
         this.taskDesc = "There are no tasks running";
+        this.hr = 0;
+        this.min = 0;
+        this.sec = 0;
 
     }
 
